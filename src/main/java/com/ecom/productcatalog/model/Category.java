@@ -1,13 +1,19 @@
 package com.ecom.productcatalog.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +22,7 @@ public class Category {
 
     @OneToMany(mappedBy = "category",
     cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY)
+    fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Product> products;
 }
